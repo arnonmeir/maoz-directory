@@ -1,0 +1,26 @@
+{
+  "short_name": "רשת מעוז",
+  "name": "ספר הרשת — מעוז",
+  "description": "ספר הטלפונים הדיגיטלי של רשת מעוז",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1C3557",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "lang": "he",
+  "dir": "rtl"
+}
