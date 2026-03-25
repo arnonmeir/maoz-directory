@@ -179,7 +179,7 @@ function MemberRow({ m, onClick }) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div style={{ fontWeight: 700, fontSize: 15, color: "#111827" }}>{m.name}</div>
-          <span style={{ fontSize: 13, flexShrink: 0, marginRight: 6 }}>{REGION_ICON[m.region]}</span>
+          <span style={{ fontSize: 11, color: "#9CA3AF", flexShrink: 0, marginRight: 4 }}>{m.region}</span>
         </div>
         <div style={{ fontSize: 12, color: "#6B7280", marginTop: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {m.role} · {m.org}
@@ -205,7 +205,8 @@ export default function App() {
   const filtered = useMemo(() => MEMBERS.filter(m => {
     const q = query.trim().toLowerCase();
     const mQ = !q || m.name.includes(q) || m.org.includes(q) || m.role.includes(q) ||
-      (m.skills && m.skills.includes(q)) || (m.offer && m.offer.includes(q));
+      (m.skills && m.skills.includes(q)) || (m.offer && m.offer.includes(q)) ||
+      (m.about && m.about.includes(q)) || (m.cohort && m.cohort.includes(q));
     const mR = !filterRegion || m.region === filterRegion;
     const mD = !filterDomain || m.domain === filterDomain;
     return mQ && mR && mD;
@@ -317,7 +318,7 @@ export default function App() {
                     border: `1.5px solid ${active ? BRAND.primary : "#E5E7EB"}`,
                     padding: "5px 13px", borderRadius: 20, fontSize: 12, fontWeight: 600,
                     cursor: "pointer", fontFamily: "almoni, 'Heebo', sans-serif",
-                  }}>{REGION_ICON[r]} {r}</button>
+                  }}>{r}</button>
                 );
               })}
               {filterDomain && (
