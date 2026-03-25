@@ -4,6 +4,12 @@
   "description": "ספר הטלפונים הדיגיטלי של רשת מעוז",
   "icons": [
     {
+      "src": "icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
       "src": "icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
@@ -18,7 +24,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#1C3557",
+  "theme_color": "#222241",
   "background_color": "#ffffff",
   "orientation": "portrait",
   "lang": "he",
