@@ -1,4 +1,4 @@
-const CACHE_NAME = 'maoz-v1';
+const CACHE_NAME = 'maoz-v2';
 const urlsToCache = ['/', '/index.html', '/static/js/main.chunk.js', '/static/css/main.chunk.css'];
 
 self.addEventListener('install', event => {
