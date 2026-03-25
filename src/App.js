@@ -206,19 +206,28 @@ export default function App() {
   }, []);
 
   const css = `
-    /* להחליף עם קבצי הפונט האמיתיים לאחר קבלתם */
     @font-face {
       font-family: 'almoni';
-      src: url('/fonts/almoni-ml-v5-aaa.woff2') format('woff2'),
-           url('/fonts/almoni-ml-v5-aaa.woff') format('woff');
+      src: url('/fonts/almoni-regular-aaa.woff2') format('woff2');
       font-weight: 400;
       font-style: normal;
     }
     @font-face {
       font-family: 'almoni';
-      src: url('/fonts/almoni-ml-v5-aaa-bold.woff2') format('woff2'),
-           url('/fonts/almoni-ml-v5-aaa-bold.woff') format('woff');
+      src: url('/fonts/almoni-bold-aaa.woff2') format('woff2');
       font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'almoni';
+      src: url('/fonts/almoni-light-aaa.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'almoni';
+      src: url('/fonts/almoni-black-aaa.woff2') format('woff2');
+      font-weight: 900;
       font-style: normal;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
