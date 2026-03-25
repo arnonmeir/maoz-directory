@@ -103,7 +103,7 @@ function ProfileModal({ m, onClose }) {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, margin: "12px 20px 0" }}>
           {[
-            { label: "תחום", value: `${DOMAIN_ICON[m.domain] || "◈"} ${m.domain}` },
+            { label: "תחום", value: m.domain },
             { label: "אזור", value: `${REGION_ICON[m.region] || ""} ${m.region}` },
           ].map(item => (
             <div key={item.label} style={{ background: "#F9FAFB", borderRadius: 10, padding: "10px 12px" }}>
@@ -128,19 +128,32 @@ function ProfileModal({ m, onClose }) {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, margin: "20px 20px 0" }}>
           <a href={`tel:${m.phone}`} style={{
             background: BRAND.primary, color: "#fff", borderRadius: 12,
-            padding: "13px 6px", textAlign: "center", fontWeight: 700,
-            fontSize: 13, display: "block", textDecoration: "none", fontFamily: "almoni, 'Heebo', sans-serif"
-          }}>📞 חייג</a>
+            padding: "14px 6px", textAlign: "center",
+            display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none",
+          }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" fill="#fff"/>
+            </svg>
+          </a>
           <a href={toWALink(m.phone)} target="_blank" rel="noreferrer" style={{
             background: "#25D366", color: "#fff", borderRadius: 12,
-            padding: "13px 6px", textAlign: "center", fontWeight: 700,
-            fontSize: 13, display: "block", textDecoration: "none", fontFamily: "almoni, 'Heebo', sans-serif"
-          }}>💬 וואטסאפ</a>
+            padding: "14px 6px", textAlign: "center",
+            display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none",
+          }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#fff"/>
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.355A9.956 9.956 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 01-4.049-1.107l-.29-.173-3.005.818.792-2.924-.19-.3A7.96 7.96 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z" fill="#fff"/>
+            </svg>
+          </a>
           <a href={`mailto:${m.email}`} style={{
             background: "#F3F4F6", color: "#374151", borderRadius: 12,
-            padding: "13px 6px", textAlign: "center", fontWeight: 700,
-            fontSize: 13, display: "block", textDecoration: "none", fontFamily: "almoni, 'Heebo', sans-serif"
-          }}>✉️ מייל</a>
+            padding: "14px 6px", textAlign: "center",
+            display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none",
+          }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z" fill="#374151"/>
+            </svg>
+          </a>
         </div>
         <div style={{ marginTop: 6, textAlign: "center" }}>
           <span style={{ fontSize: 11, color: "#9CA3AF" }}>{m.cohort} · חבר מ-{m.year}</span>
@@ -256,7 +269,7 @@ export default function App() {
             background: BRAND.primary, padding: "10px 20px",
             display: "flex", justifyContent: "space-between", alignItems: "center"
           }}>
-            <img src="/logo.svg" alt="מעוז" style={{ height: 26, filter: "brightness(0) invert(1)" }} />
+            <img src="/logo-white.svg" alt="מעוז" style={{ height: 26 }} />
             <div style={{ textAlign: "left" }}>
               <div style={{ fontSize: 15, fontWeight: 800, color: "#fff", lineHeight: 1 }}>ספר הרשת</div>
               <div style={{ fontSize: 10, color: BRAND.accent, marginTop: 2 }}>1,200 חברי רשת</div>
@@ -357,7 +370,6 @@ export default function App() {
                     onMouseEnter={e => e.currentTarget.style.transform = "translateY(-1px)"}
                     onMouseLeave={e => e.currentTarget.style.transform = ""}
                   >
-                    <div style={{ fontSize: 26, marginBottom: 8 }}>{DOMAIN_ICON[d]}</div>
                     <div style={{ fontWeight: 800, fontSize: 15, color: "#111827" }}>{d}</div>
                     <div style={{ fontSize: 12, color: "#9CA3AF", marginTop: 2 }}>{count} חברים</div>
                     <div style={{ marginTop: 10, height: 3, background: "#F3F4F6", borderRadius: 4 }}>
