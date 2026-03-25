@@ -1,21 +1,28 @@
 import { useState, useMemo } from "react";
 import MEMBERS from "./members";
 
-const DOMAINS = ["חינוך","רווחה","תעסוקה","קהילה","ממלכתיות","מחקר"];
-const REGIONS = ["מרכז","ירושלים","דרום","צפון"];
+const DOMAINS = ["תעסוקה ועמיתים", "ענבר", "חינוך", "מקום", "מיתר"];
+const REGIONS = ["מרכז", "ירושלים", "דרום", "צפון"];
 
 // צבעי מותג מעוז
-const BRAND = { primary: "#222140", accent: "#7ea3d5" };
+const BRAND = { primary: "#222241", accent: "#aac5db", light: "#e6e7e8", blue: "#6699ff" };
 
+// צבעי מיזמים
 const DOMAIN_COLOR = {
-  "חינוך":"#0F766E","רווחה":"#1D4ED8","תעסוקה":"#7C3AED",
-  "קהילה":"#C2410C","ממלכתיות":"#222140","מחקר":"#0369A1",
+  "תעסוקה ועמיתים": "#2CAA59",
+  "ענבר":            "#60BCBB",
+  "חינוך":           "#8A77AA",
+  "מקום":            "#366FA7",
+  "מיתר":            "#5830AF",
 };
 const DOMAIN_ICON = {
-  "חינוך":"🎓","רווחה":"🤝","תעסוקה":"💼","קהילה":"🏘️",
-  "ממלכתיות":"🏛️","מחקר":"🔬",
+  "תעסוקה ועמיתים": "💼",
+  "ענבר":            "🌿",
+  "חינוך":           "🎓",
+  "מקום":            "🏘️",
+  "מיתר":            "🎵",
 };
-const REGION_ICON = {"דרום":"🌵","מרכז":"🏙️","צפון":"🌿","ירושלים":"✦"};
+const REGION_ICON = { "דרום": "🌵", "מרכז": "🏙️", "צפון": "🌿", "ירושלים": "✦" };
 const AVATAR_BG = ["#DBEAFE","#D1FAE5","#FEE2E2","#EDE9FE","#FEF3C7","#CFFAFE","#FCE7F3","#E0E7FF"];
 const AVATAR_FG = ["#1D4ED8","#065F46","#991B1B","#5B21B6","#92400E","#0E7490","#9D174D","#3730A3"];
 
@@ -25,6 +32,11 @@ function hashIdx(str, len) {
   return h;
 }
 
+function toWALink(phone) {
+  const digits = phone.replace(/\D/g, "");
+  return `https://wa.me/972${digits.slice(1)}`;
+}
+
 function Avatar({ name, size = 46, photo }) {
   const i = hashIdx(name, AVATAR_BG.length);
   const letters = name.split(" ").map(p => p[0]).join("").slice(0, 2);
@@ -32,14 +44,14 @@ function Avatar({ name, size = 46, photo }) {
     <img src={photo} alt={name} style={{
       width: size, height: size, borderRadius: "50%", objectFit: "cover", flexShrink: 0,
       border: "2px solid #E5E7EB"
-    }} onError={e => { e.target.style.display='none'; }} />
+    }} onError={e => { e.target.style.display = "none"; }} />
   );
   return (
     <div style={{
       width: size, height: size, borderRadius: "50%", flexShrink: 0,
       background: AVATAR_BG[i], color: AVATAR_FG[i],
       display: "flex", alignItems: "center", justifyContent: "center",
-      fontWeight: 700, fontSize: size * 0.36, fontFamily: "'Heebo', sans-serif"
+      fontWeight: 700, fontSize: size * 0.36, fontFamily: "almoni, 'Heebo', sans-serif"
     }}>{letters}</div>
   );
 }
@@ -89,11 +101,10 @@ function ProfileModal({ m, onClose }) {
           </div>
         )}
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, margin: "12px 20px 0" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, margin: "12px 20px 0" }}>
           {[
             { label: "תחום", value: `${DOMAIN_ICON[m.domain] || "◈"} ${m.domain}` },
             { label: "אזור", value: `${REGION_ICON[m.region] || ""} ${m.region}` },
-            { label: "זהות", value: m.identity },
           ].map(item => (
             <div key={item.label} style={{ background: "#F9FAFB", borderRadius: 10, padding: "10px 12px" }}>
               <div style={{ fontSize: 10, color: "#9CA3AF", fontWeight: 700, letterSpacing: 1, marginBottom: 4 }}>{item.label}</div>
@@ -113,16 +124,22 @@ function ProfileModal({ m, onClose }) {
           </div>
         )}
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, margin: "20px 20px 0" }}>
+        {/* כפתורי יצירת קשר */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, margin: "20px 20px 0" }}>
           <a href={`tel:${m.phone}`} style={{
-            background: "#222140", color: "#fff", borderRadius: 12,
-            padding: "13px 10px", textAlign: "center", fontWeight: 700,
-            fontSize: 14, display: "block", textDecoration: "none", fontFamily: "'Heebo', sans-serif"
-          }}>📞 {m.phone}</a>
+            background: BRAND.primary, color: "#fff", borderRadius: 12,
+            padding: "13px 6px", textAlign: "center", fontWeight: 700,
+            fontSize: 13, display: "block", textDecoration: "none", fontFamily: "almoni, 'Heebo', sans-serif"
+          }}>📞 חייג</a>
+          <a href={toWALink(m.phone)} target="_blank" rel="noreferrer" style={{
+            background: "#25D366", color: "#fff", borderRadius: 12,
+            padding: "13px 6px", textAlign: "center", fontWeight: 700,
+            fontSize: 13, display: "block", textDecoration: "none", fontFamily: "almoni, 'Heebo', sans-serif"
+          }}>💬 וואטסאפ</a>
           <a href={`mailto:${m.email}`} style={{
             background: "#F3F4F6", color: "#374151", borderRadius: 12,
-            padding: "13px 10px", textAlign: "center", fontWeight: 700,
-            fontSize: 14, display: "block", textDecoration: "none", fontFamily: "'Heebo', sans-serif"
+            padding: "13px 6px", textAlign: "center", fontWeight: 700,
+            fontSize: 13, display: "block", textDecoration: "none", fontFamily: "almoni, 'Heebo', sans-serif"
           }}>✉️ מייל</a>
         </div>
         <div style={{ marginTop: 6, textAlign: "center" }}>
@@ -158,7 +175,6 @@ function MemberRow({ m, onClick }) {
           <span style={{ background: `${color}14`, color, fontSize: 11, fontWeight: 700, padding: "2px 9px", borderRadius: 20 }}>
             {m.domain}
           </span>
-          <span style={{ fontSize: 11, color: "#9CA3AF" }}>{m.identity}</span>
         </div>
       </div>
       <div style={{ color: "#D1D5DB", fontSize: 20 }}>›</div>
@@ -190,10 +206,24 @@ export default function App() {
   }, []);
 
   const css = `
-    @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap');
+    /* להחליף עם קבצי הפונט האמיתיים לאחר קבלתם */
+    @font-face {
+      font-family: 'almoni';
+      src: url('/fonts/almoni-ml-v5-aaa.woff2') format('woff2'),
+           url('/fonts/almoni-ml-v5-aaa.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'almoni';
+      src: url('/fonts/almoni-ml-v5-aaa-bold.woff2') format('woff2'),
+           url('/fonts/almoni-ml-v5-aaa-bold.woff') format('woff');
+      font-weight: 700;
+      font-style: normal;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #F3F4F6; -webkit-tap-highlight-color: transparent; }
-    input:focus { outline: none; box-shadow: 0 0 0 3px #1C355720; }
+    body { background: #F3F4F6; font-family: almoni, 'Heebo', sans-serif; -webkit-tap-highlight-color: transparent; }
+    input:focus { outline: none; box-shadow: 0 0 0 3px #22224120; }
     input::placeholder { color: #9CA3AF; }
     @keyframes bgFade { from { opacity: 0 } to { opacity: 1 } }
     @keyframes sheetUp { from { transform: translateY(60px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
@@ -203,11 +233,11 @@ export default function App() {
 
   const TABS = [
     { key: "browse", label: "חיפוש", icon: "🔍" },
-    { key: "domains", label: "תחומים", icon: "◉" },
+    { key: "domains", label: "מיזמים", icon: "◉" },
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F3F4F6", fontFamily: "'Heebo', sans-serif", direction: "rtl" }}>
+    <div style={{ minHeight: "100vh", background: "#F3F4F6", fontFamily: "almoni, 'Heebo', sans-serif", direction: "rtl" }}>
       <style>{css}</style>
 
       {/* Header */}
@@ -230,7 +260,7 @@ export default function App() {
                 padding: "10px 0", fontSize: 13,
                 fontWeight: tab === t.key ? 700 : 500,
                 color: tab === t.key ? BRAND.primary : "#9CA3AF",
-                fontFamily: "'Heebo', sans-serif",
+                fontFamily: "almoni, 'Heebo', sans-serif",
                 borderBottom: `2px solid ${tab === t.key ? BRAND.primary : "transparent"}`,
                 display: "flex", gap: 5, alignItems: "center", justifyContent: "center",
               }}><span>{t.icon}</span>{t.label}</button>
@@ -250,7 +280,7 @@ export default function App() {
                 style={{
                   width: "100%", padding: "12px 16px",
                   background: "#fff", border: "1.5px solid #E5E7EB", borderRadius: 12,
-                  fontSize: 14, color: "#111827", fontFamily: "'Heebo', sans-serif", direction: "rtl",
+                  fontSize: 14, color: "#111827", fontFamily: "almoni, 'Heebo', sans-serif", direction: "rtl",
                 }}
               />
             </div>
@@ -264,7 +294,7 @@ export default function App() {
                     color: active ? "#fff" : "#6B7280",
                     border: `1.5px solid ${active ? BRAND.primary : "#E5E7EB"}`,
                     padding: "5px 13px", borderRadius: 20, fontSize: 12, fontWeight: 600,
-                    cursor: "pointer", fontFamily: "'Heebo', sans-serif",
+                    cursor: "pointer", fontFamily: "almoni, 'Heebo', sans-serif",
                   }}>{REGION_ICON[r]} {r}</button>
                 );
               })}
@@ -274,14 +304,14 @@ export default function App() {
                   color: DOMAIN_COLOR[filterDomain],
                   border: `1.5px solid ${DOMAIN_COLOR[filterDomain]}44`,
                   padding: "5px 13px", borderRadius: 20, fontSize: 12, fontWeight: 600,
-                  cursor: "pointer", fontFamily: "'Heebo', sans-serif",
+                  cursor: "pointer", fontFamily: "almoni, 'Heebo', sans-serif",
                 }}>{filterDomain} ✕</button>
               )}
               {hasFilters && (
                 <button onClick={() => { setQuery(""); setFilterRegion(null); setFilterDomain(null); }} style={{
                   background: "none", color: "#9CA3AF", border: "1.5px solid #E5E7EB",
                   padding: "5px 13px", borderRadius: 20, fontSize: 12,
-                  cursor: "pointer", fontFamily: "'Heebo', sans-serif",
+                  cursor: "pointer", fontFamily: "almoni, 'Heebo', sans-serif",
                 }}>נקה</button>
               )}
             </div>
@@ -304,7 +334,7 @@ export default function App() {
 
         {tab === "domains" && (
           <>
-            <div style={{ fontSize: 12, color: "#9CA3AF", fontWeight: 600, marginBottom: 12 }}>בחר תחום לסינון</div>
+            <div style={{ fontSize: 12, color: "#9CA3AF", fontWeight: 600, marginBottom: 12 }}>בחר מיזם לסינון</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               {DOMAINS.map(d => {
                 const color = DOMAIN_COLOR[d] || "#374151";
@@ -346,7 +376,7 @@ export default function App() {
             <button key={t.key} onClick={() => setTab(t.key)} style={{
               flex: 1, background: "none", border: "none", cursor: "pointer",
               display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
-              padding: "6px 0", fontFamily: "'Heebo', sans-serif",
+              padding: "6px 0", fontFamily: "almoni, 'Heebo', sans-serif",
             }}>
               <span style={{ fontSize: 20 }}>{t.icon}</span>
               <span style={{ fontSize: 10, fontWeight: 700, color: tab === t.key ? BRAND.primary : "#9CA3AF" }}>{t.label}</span>
